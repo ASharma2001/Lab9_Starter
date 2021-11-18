@@ -100,6 +100,7 @@
       if(isNaN(a) || isNaN(b)) {
         TrackJS.track('input error in operation function');
         throw new ValidationError("Please input a valid number");
+        return null;
       }
 
       let one = parseInt(a);
@@ -122,15 +123,15 @@
       let operator = document.querySelector('#operator').value;
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
-      
+      let value = null;
       try {
-        operation(firstNum, secondNum, operator)
+        value = operation(firstNum, secondNum, operator);
       } catch(err) {
         console.error(err.message);
         console.error(err.name);
         console.error(err.stack);
       } finally {
-        output.value = "Invalid input" 
+        output.value = !isNaN(value) ? value : "Invalid Input"; 
       }
     });
 
